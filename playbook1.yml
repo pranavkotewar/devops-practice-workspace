@@ -1,0 +1,7 @@
+- name: Simple play and test
+  hosts: servers
+  become: yes
+
+  tasks:
+   - name: ping all servers
+     ansible.builtin.ping:
