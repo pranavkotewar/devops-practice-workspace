@@ -1,0 +1,28 @@
+- name: creating files and dir using variables
+  hosts: all
+  become: yes
+
+  vars:
+   dir_name: /demo
+   file_name: /demo/sample.txt
+   f_owner: ansible
+   f_group: ansible
+   dir_permission: '0755'
+   file_permission: '0644'
+
+  tasks:
+   - name: creating dir using variable
+     ansible.builtin.file:
+      path: "{{ dir_name }}"
+      state: directory
+      owner: "{{ f_owner }}"
+      group: "{{ f_group }}"
+      mode: "{{ dir_permission }}"
+
+   - name: creating file using variable
+     ansible.builtin.file:
+      path: "{{ file_name }}"
+      state: touch
+      mode: "{{ file_permission }}"
+      owner: "{{ f_owner }}"
+      group: "{{ f_group }}"

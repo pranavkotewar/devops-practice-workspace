@@ -1,0 +1,16 @@
+- name: Inastall and start nginx server
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Installing nginx package...
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: starting nginx server...
+      ansible.builtin.service:
+       name: nginx
+       state: started
+       enabled: yes

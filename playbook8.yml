@@ -1,0 +1,22 @@
+---
+- name: task vars override play vars
+  hosts: all
+
+  vars:
+    colour: green
+
+
+  tasks:
+   - name: print play var
+     debug:
+       msg: "{{ colour }}"
+
+   - name: print var from task
+     debug:
+       msg: "{{ colour }}"
+     vars:
+       colour: yellow
+
+   - name: again print colour from play
+     debug:
+       msg: "{{ colour }}"

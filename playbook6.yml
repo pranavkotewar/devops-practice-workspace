@@ -1,0 +1,14 @@
+# declaring variables directly into the playbook
+
+- name: printing variable values
+  hosts: servers
+  become: yes
+
+  vars:
+    service: nginx
+    var_port: 8080
+
+  tasks:
+    - debug:
+         msg: "{{ service }} is running on port = {{ var_port }}"
+

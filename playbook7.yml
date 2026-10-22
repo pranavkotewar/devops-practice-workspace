@@ -1,0 +1,21 @@
+# declare variable within a specific task.
+
+- name: task variable example
+  hosts: all
+  become: yes
+
+  vars:
+    colour: red
+
+  tasks:
+    - name: task variable example
+
+      vars:
+        colour: blue
+      debug:
+        msg: "the colour is {{ colour }}"
+
+    - name: task example 2
+      debug:
+        msg: "the colour is {{ colour }}"
+

@@ -1,0 +1,16 @@
+---
+- name: Tasks with loop example
+  hosts: servers
+
+
+  tasks:
+    - name: shows devops tools list using vars and loop
+      vars:
+        devops_tools:
+          - jenkins
+          - ansible
+          - linux
+          - docker
+      loop: "{{ devops_tools }}"
+      debug:
+        msg: "Tool: {{ item }}"

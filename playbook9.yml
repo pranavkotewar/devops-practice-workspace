@@ -1,0 +1,22 @@
+---
+- name: task vars with conditions
+  hosts: all
+
+  tasks:
+    - name: this will always prints
+      debug: 
+        msg: "this always shows"
+
+    - name: msg with true condition
+      debug:
+        msg: "Message is ENABLED!"
+      vars:
+        enable_msg: true
+      when: enable_msg
+
+    - name: msg with false conditions
+      debug:
+        msg: "this should not show if conditions get false"
+      vars:
+        enable_msg: false
+      when: enable_msg
