@@ -1,0 +1,81 @@
+- name: Deploying Python app on remote server
+  hosts: servers
+  become: yes
+
+  tasks:
+    - name: installing packages
+      ansible.builtin.apt:
+        name:
+          - python3
+          #- python3-pip
+          #- python3-venv
+          - python3-flask
+        state: present
+        update_cache: true
+
+    - name: create app_directory
+      ansible.builtin.file:
+        path: /home/ansible/app-dir
+        state: directory
+        mode: '0755'
+        owner: ansible
+        group: ansible
+
+    - name: copy app_file
+      ansible.builtin.copy:
+        src: app.py
+        dest: /home/ansible/app-dir/app.py
+        mode: '0644'
+
+   # - name: copy requirements
+    #  ansible.builtin.copy:
+     #   src: requirements.txt
+      #  dest: /home/ansible/app-dir/requirements.txt
+       # mode: '0644'
+
+   # - name: create python venv
+    #  ansible.builtin.command:
+     #   cmd: python3 -m venv /home/ansible/app-dir/venv
+      #  creates: /home/ansible/app-dir/venv/bin/python
+
+   # - name: install dependencies
+    #  ansible.builtin.pip:
+     #   requirements: /home/ansible/app-dir/requirements.txt
+      #  virtualenv: /home/ansible/app-dir/venv
+
+    #- name: run app
+     # ansible.builtin.command:
+      #  chdir: /home/ansible/app-dir
+       # cmd: python3 app.py  &
+
+    - name: run python app
+      ansible.builtin.shell: |
+        cd /home/ansible/app-dir && python3 app.py &
+
+    - name: running msg
+      ansible.builtin.debug:
+        msg: "app is running on http://{{ ansible_default_ipv4.address }}:5000"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
